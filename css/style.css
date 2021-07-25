@@ -1,0 +1,9 @@
+header img{
+    width: 200px;
+    height: 100px;
+}
+#images{
+    width: 30%;
+    height: 50px;
+    display: inline-block;
+}
