@@ -5,7 +5,7 @@ let secondImageElement = document.getElementById('two');
 let thirdImageElement = document.getElementById('three');
 let ImagesElement = document.getElementById('images')
 // edit to 25..............
-let maxAttempt = 5;
+let maxAttempt = 25;
 let userAttempt = 0;
 
 let firstImageIndex;
@@ -18,11 +18,11 @@ function Shop(name, src) {
     this.vote = 0;
     this.shown = 0;
 
-    items.push(this);
+    Shop.all.push(this);
 
 }
-
-let items = [];
+Shop.all=[];
+console.log(Shop.all);
 
 new Shop('bag', 'Images/bag.jpg');
 new Shop('banana', 'Images/banana.jpg');
@@ -50,7 +50,7 @@ new Shop('wine-glass', 'Images/wine-glass.jpg');
 
 function getRandomIndex() {
 
-    return Math.floor(Math.random() * Shop.length);
+    return Math.floor(Math.random() * Shop.all.length);
 }
 
 console.log(getRandomIndex);
@@ -71,14 +71,14 @@ function renderImages() {
     }
 
 
-    firstImageElement.src = items[firstImageIndex].source;
-    secondImageElement.src = items[secondImageIndex].source;
-    thirdImageElement.src = items[thirdImageIndex].source;
+    firstImageElement.src = Shop.all[firstImageIndex].source;
+    secondImageElement.src = Shop.all[secondImageIndex].source;
+    thirdImageElement.src = Shop.all[thirdImageIndex].source;
 
     // console.log(firstImage, secondImage, thirdImage);
-    items[firstImageIndex].shown++
-    items[secondImageIndex].shown++
-     items[thirdImageIndex].shown++
+    Shop.all[firstImageIndex].shown++
+    Shop.all[secondImageIndex].shown++
+    Shop.all[thirdImageIndex].shown++
 }
 
 renderImages();
@@ -89,21 +89,28 @@ let button=document.getElementById('Show');
 
 function handleUserClick(e) {
  
-    userAttempt++
+  
 
 
     console.log(userAttempt);
      console.log(e.target.id);
-    if (userAttempt <= maxAttempt) {
+    if (userAttempt < maxAttempt) {
         if (e.target.id === 'one') {
-            items[firstImageIndex].vote++
-    console.log(  items[firstImageIndex].vote);
+            Shop.all[firstImageIndex].vote++
+    console.log(  Shop.all[firstImageIndex].vote);
     console.log('hello');
+    userAttempt++
+    renderImages();
+
         }
         else if (e.target.id === 'two') {
-            items[secondImageIndex].vote++
-        } else {
-            items[thirdImageIndex].vote++
+            Shop.all[secondImageIndex].vote++
+            userAttempt++
+            renderImages();
+        } else if(e.target.id==='three') {
+            Shop.all[thirdImageIndex].vote++
+            userAttempt++
+            renderImages();
     
         }
     } else {
@@ -112,20 +119,20 @@ function handleUserClick(e) {
         button.addEventListener('click',handleButttonClick);
       
         
-
         
     }
     
 }
 
+
 function handleButttonClick() {
   
     let list = document.getElementById('result');
     
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < Shop.all.length; i++) {
         let listItem = document.createElement('li');
         list.appendChild(listItem);
-        listItem.textContent = `${items[i].name} has ${items[i].vote}vote ${items[i].shown}shown`
+        listItem.textContent = `${Shop.all[i].name} has ${Shop.all[i].vote}vote ${Shop.all[i].shown}shown`
 
 
     }
