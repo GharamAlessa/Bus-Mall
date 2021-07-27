@@ -24,6 +24,8 @@ function Shop(name, src) {
     this.shown = 0;
 
     Shop.all.push(this);
+    namesArr.push(this.name);
+    // voteArr.push(this.vote);
 
 }
 Shop.all=[];
@@ -124,6 +126,13 @@ function handleUserClick(e) {
         ImagesElement.removeEventListener('click',handleUserClick);
 
         button.addEventListener('click',handleButttonClick);
+
+
+        for (let i = 0; i < Shop.all.length; i++) {
+            voteArr.push(Shop.all[i].vote);
+            shownArr.push(Shop.all[i].shown);
+            
+        }
       
      showChart();   
         
@@ -154,8 +163,8 @@ function showChart() {
     const data = {
       labels: namesArr,
       datasets: [{
-        label: 'Votes',
-        data: votesArr,
+        label: 'Vote',
+        data: voteArr,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
