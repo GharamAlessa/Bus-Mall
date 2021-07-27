@@ -11,10 +11,12 @@ let userAttempt = 0;
 let firstImageIndex;
 let secondImageIndex;
 let thirdImageIndex;
+
 let namesArr=[];
 let voteArr=[];
 let shownArr=[];
 let shownPic=[];
+
 
 
 function Shop(name, src) {
@@ -24,8 +26,10 @@ function Shop(name, src) {
     this.shown = 0;
 
     Shop.all.push(this);
+
     namesArr.push(this.name);
     // voteArr.push(this.vote);
+
 
 }
 Shop.all=[];
@@ -61,7 +65,9 @@ function getRandomIndex() {
 }
 
 
+
 getRandomIndex();
+
 
 
 
@@ -73,13 +79,17 @@ function renderImages() {
     thirdImageIndex = getRandomIndex();
 
 
+
     while (firstImageIndex === secondImageIndex || secondImageIndex === thirdImageIndex || firstImageIndex === thirdImageIndex||shownPic.includes(firstImageIndex)||shownPic.includes(secondImageIndex)||shownPic.includes(thirdImageIndex)) {
+
       firstImageIndex =getRandomIndex(); 
         secondImageIndex = getRandomIndex();
         thirdImageIndex = getRandomIndex();
     }
 
+
 shownPic=[firstImageIndex,secondImageIndex,thirdImageIndex];
+
     firstImageElement.src = Shop.all[firstImageIndex].source;
     secondImageElement.src = Shop.all[secondImageIndex].source;
     thirdImageElement.src = Shop.all[thirdImageIndex].source;
@@ -106,8 +116,10 @@ function handleUserClick(e) {
     if (userAttempt < maxAttempt) {
         if (e.target.id === 'one') {
             Shop.all[firstImageIndex].vote++
+
     // console.log(  Shop.all[firstImageIndex].vote);
     // console.log('hello');
+
     userAttempt++
     renderImages();
 
@@ -128,6 +140,7 @@ function handleUserClick(e) {
         button.addEventListener('click',handleButttonClick);
 
 
+
         for (let i = 0; i < Shop.all.length; i++) {
             voteArr.push(Shop.all[i].vote);
             shownArr.push(Shop.all[i].shown);
@@ -138,6 +151,7 @@ function handleUserClick(e) {
         
     }
   
+
     
 }
 
