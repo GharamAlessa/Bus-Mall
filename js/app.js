@@ -3,7 +3,7 @@
 let firstImageElement = document.getElementById('one');
 let secondImageElement = document.getElementById('two');
 let thirdImageElement = document.getElementById('three');
-let ImagesElement = document.getElementById('images')
+let ImagesElement = document.getElementById('images');
 // edit to 25..............
 let maxAttempt = 25;
 let userAttempt = 0;
@@ -16,6 +16,9 @@ let namesArr=[];
 let voteArr=[];
 let shownArr=[];
 let shownPic=[];
+// let items=[];
+// Shop.all=[];
+
 
 
 
@@ -29,12 +32,41 @@ function Shop(name, src) {
 
     namesArr.push(this.name);
     // voteArr.push(this.vote);
+updateStorage();
 
 
 }
 Shop.all=[];
-console.log(Shop.all);
+// console.log(Shop.all);
 
+function updateStorage() {
+  let arrayString=JSON.stringify(Shop.all);
+  localStorage.setItem('items',arrayString);
+
+
+}
+
+function getItems() {
+  let data=localStorage.getItem('items');
+  console.log(data);
+  let parsedData=JSON.parse(data);
+
+
+
+if (parsedData!==null) {
+  Shop.all=[];
+  for (let i = 0; i < parsedData.length; i++) {
+   let newShop=new Shop(parsedData[i].name,parsedData[i],source);
+   newShop.vote=parsedData[i].vote;
+   newShop.shown=parsedData[i].shown;
+
+    
+  }console.log(Shop.all);
+
+}
+
+
+}
 new Shop('bag', 'Images/bag.jpg');
 new Shop('banana', 'Images/banana.jpg');
 new Shop('bathroom', 'Images/bathroom.jpg');
